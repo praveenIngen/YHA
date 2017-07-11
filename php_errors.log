@@ -1,0 +1,5 @@
+[08-Mar-2017 11:41:09 Asia/Calcutta] PHP Fatal error:  Call to a member function dateFormat() on a non-object in E:\Deployment\YHASite\Yhastage\test.php on line 29
+[08-Mar-2017 11:51:05 Asia/Calcutta] PHP Fatal error:  Call to a member function dateFormat() on a non-object in E:\Deployment\YHASite\Yhastage\test.php on line 29
+[08-Mar-2017 11:51:39 Asia/Calcutta] PHP Fatal error:  Call to a member function Format() on a non-object in E:\Deployment\YHASite\Yhastage\test.php on line 29
+[08-Mar-2017 11:51:44 Asia/Calcutta] PHP Fatal error:  Call to a member function Format() on a non-object in E:\Deployment\YHASite\Yhastage\test.php on line 29
+[08-Mar-2017 11:52:04 Asia/Calcutta] PHP Fatal error:  Call to a member function Format() on a non-object in E:\Deployment\YHASite\Yhastage\test.php on line 29

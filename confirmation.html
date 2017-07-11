@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+       <link rel="stylesheet" href="https://hotelingen.com/yhai/Content/animate.css">
+    <link rel="stylesheet" href="https://hotelingen.com/yhai/Content/bootstrap.css">
+    <link rel="stylesheet" href="https://hotelingen.com/yhai/Content/font-awesome.min.css">
+    <link rel="stylesheet" href="https://hotelingen.com/yhai/Content/owl.carousel.css">
+    <link rel="stylesheet" href="https://hotelingen.com/yhai/Content/owl.theme.css">
+    <link rel="stylesheet" href="https://hotelingen.com/yhai/Content/prettyPhoto.css">
+    <link rel="stylesheet" href="https://hotelingen.com/yhai/Content/smoothness/jquery-ui-1.10.4.custom.min.css">
+    <link rel="stylesheet" href="https://hotelingen.com/yhai/Scripts/rs-plugin/css/settings.css">
+    <link rel="stylesheet" href="https://hotelingen.com/yhai/Content/theme.css">
+    <link rel="stylesheet" href="https://hotelingen.com/yhai/Content/colors/green.css">
+    <link rel="stylesheet" href="https://hotelingen.com/yhai/Content/responsive.css">
+
+
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600,700">
+    <script src="https://hotelingen.com/yhai/bundles/jquery?v=FVs3ACwOLIVInrAl5sdzR2jrCDmVOWFbZMY6g6Q0ulE1"></script>
+
+    <script src="https://hotelingen.com/yhai/bundles/jqueryval?v=NOVQDySGO89wzMzO5x7mWS4C_uAdynpZe_Lk2y-xEM41"></script>
+
+    
+    <script type="text/javascript" src="http://yhaindia.org//Webroot/ThemeAssets/js/bootstrap.js"></script> 
+<script type="text/javascript" src="http://yhaindia.org//Webroot/ThemeAssets/js/bootstrap-select.js"></script> 
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/bootstrap-hover-dropdown.min.js"></script>
+
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/jquery.parallax-1.1.3.js"></script>
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/jquery.nicescroll.js"></script>
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/jquery.prettyPhoto.js"></script>
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/jquery-ui-1.10.4.custom.min.js"></script>
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/jquery.forms.js"></script>
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/jquery.sticky.js"></script>
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/waypoints.min.js"></script>
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/jquery.gmap.min.js"></script>
+    <script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/custom.js"></script>
+    <script type="text/javascript" src="https://hotelingen.com/yhai/Scripts/js/Common.js"></script>
+
+    
+    <script src="https://hotelingen.com/yhai/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1"></script>
+
+    <script src="https://hotelingen.com/yhai/bundles/bootstrap?v=0dkr4rpHwvihrTE8K7GZtXK3sNhQAf5lnzCOCzgYXVs1"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"> </script>
+    
+    </head>
+<body>
+<div id="fadebox" style="display:none">
+    <div id="form-loader" class=""></div>
+</div>
+    <div> 
+    @model Ingen.HMBS.Common.Entity.Reservation.Edit.ReservationEditModel
+@{
+    ViewBag.Title = "Room Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    double totalAmount = 0;
+    var days = (Convert.ToDateTime(@ViewBag.DepartureDate) - Convert.ToDateTime(@ViewBag.ArrivalDate)).TotalDays;
+    List<SelectListItem> adults = new List<SelectListItem>();
+    for (int i = 1; i <= 10; i++)
+    {
+        SelectListItem item = new SelectListItem()
+        {
+            Text = i.ToString(),
+            Value = i.ToString(),
+        };
+        adults.Add(item);
+    }
+}
+
+<section class="parallax-effect">
+    <div id="parallax-pagetitle" style="background-image: url(./images/parallax/1900x911.gif);">
+        <div class="color-overlay">
+            <!-- Page title -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h1>Reservtaion Summary</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="container">
+    <div class="row">
+        <!-- Room Content -->
+        <section>
+            <div class="container">
+                <div class="row">
+
+                    <section id="reservation-form">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @using (Html.BeginForm("Search", "Rooms", FormMethod.Post, new { @class = "form-inline reservation-horizontal clearfix", id = "Search" }))
+                                    {
+                                        @*<form class="form-inline reservation-horizontal clearfix" role="form" method="post" action="~/Rooms/Search" name="reservationform" id="reservationform">*@
+                                         <!-- Error message -->
+                                        <div id="message"></div>
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="room">City</label>
+                                                    <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="City you are looking for"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                                                    @Html.DropDownList("cityId", new SelectList(ViewBag.Cities, "Value", "Text"), "Select a City", htmlAttributes: new { @class = "form-control cities" })
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="room">Hostel</label>
+                                                    <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Property you want to stay in.You can leave if you are not sure"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                                                    @Html.DropDownList("spaceId", new SelectList(ViewBag.Spaces, "Value", "Text"), "Select a property", htmlAttributes: new { @class = "form-control hotel" })
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="checkin">Check-in</label>
+                                                    <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-In is from 11:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                                                    <i class="fa fa-calendar infield"></i>
+                                                    <input name="checkin" type="text" id="checkin" value="@ViewBag.ArrivalDate" class="form-control" placeholder="Check-in" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label for="checkout">Check-out</label>
+                                                    <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-out is from 12:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                                                    <i class="fa fa-calendar infield"></i>
+                                                    <input name="checkout" type="text" id="checkout" value="@ViewBag.DepartureDate" class="form-control" placeholder="Check-out" />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group adults">
+                                                    <label for="persons">Adults</label>
+                                                    <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Number of adults visiting"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                                                    @Html.DropDownList("persons", new SelectList(adults, "Value", "Text"), "Adults", htmlAttributes: new { @class = "form-control" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <button type="submit" class="btn btn-primary btn-block" >Search</button>
+                                            </div>
+                                        </div>                                    
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </section>
+        <!-- Slider -->
+        @*<section class="standard-slider room-slider">
+                <div class="col-sm-12 col-md-12">
+                    <div id="owl-standard" class="owl-carousel">
+                        <div class="item"> <a href="images/rooms/slider/750x481.gif" data-rel="prettyPhoto[gallery1]"><img src="images/rooms/slider/750x481.gif" alt="Image 2" class="img-responsive"></a> </div>
+                        <div class="item"> <a href="images/rooms/slider/750x481.gif" data-rel="prettyPhoto[gallery1]"><img src="images/rooms/slider/750x481.gif" alt="Image 2" class="img-responsive"></a> </div>
+                    </div>
+                </div>
+            </section>*@
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12 mt30">
+                        <h2 class="lined-heading"><span>Reservtaion Summary</span></h2>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <ul class="nav nav-pills" id="filters">
+                                        <li class="active">
+                                            <a href="#" data-filter=".all">
+                                                <div>
+                                                    <h4>Summary</h4>@Model.categoryDetails.Sum(r => r.TotalNoOfRoomsPerCategory) Room(s)<br />
+                                                    INR @Model.categoryDetails.Sum(p => p.TotalPriceInclusiveOfTax)
+                                                </div>
+                                            </a>
+                                        </li>
+                                        @foreach (var cat in Model.categoryDetails)
+                                        {
+                                            var filter = "." + @cat.CategoryDailyPrices[0].CategoryId;
+                                            <li>
+                                                <a href="#" data-filter="@filter">
+                                                    <div>
+                                                        <h4>@cat.CategoryDailyPrices[0].CategoryName</h4>@cat.CategoryDailyPrices[0].TotalRooms Room(s) <br />
+                                                        INR @cat.TotalPriceInclusiveOfTax
+                                                    </div>
+
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        @using (Html.BeginForm("Post", "Reservations", FormMethod.Post, new { @class = "reservation-vertical clearfix", id="Confirm" }))
+                        {
+                            <input type="hidden" name="cityId" value=@ViewBag.CityId />
+                            <input type="hidden" name="spaceId" value=@ViewBag.SpaceId />
+                            <input type="hidden" name="persons" value=@ViewBag.Persons />
+                            if (Model != null)
+                            {
+                                if (Model.categoryDetails != null)
+                                {
+                                    <input type="hidden" name="ArrivalDate" value="@ViewBag.ArrivalDate" />
+                                    <input type="hidden" name="DepartureDate" value="@ViewBag.DepartureDate" />
+
+                                    <section id="gallery" class="mt50">
+                                        <div>
+                                            <div class="row gallery">
+                                                @for (int i = 0; i < Model.categoryDetails.Count(); i++)
+                                                {
+                                                    var item = @Model.categoryDetails.ElementAt(i);
+                                                    var filter = @item.CategoryDailyPrices.ElementAt(0).CategoryId;
+                                                    <div class="col-sm-12 @filter fadeIn appear">
+                                                        @*@Html.HiddenFor(model => model.categoryDetails[i].CategoryId)
+                                                            @Html.HiddenFor(model => model.categoryDetails[i].TotalNoOfRoomsPerCategory)
+                                                            @Html.HiddenFor(model => model.categoryDetails[i].TotalPriceInclusiveOfTax)
+                                                            @Html.HiddenFor(model => model.categoryDetails[i].TotalTax)
+                                                            @Html.HiddenFor(model => model.categoryDetails[i].SystemPrice)*@
+                                                        @if (item.CategoryDailyPrices.Count() > 0)
+                                                        {
+                                                            totalAmount = totalAmount + @item.TotalPriceInclusiveOfTax;
+
+                                                            <h4><span>@item.CategoryDailyPrices.ElementAt(0).CategoryName</span></h4>
+                                                            <table class="table table-responsive ui-state-highlight">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <td>@Html.DisplayNameFor(modelItem => item.CategoryDailyPrices.ElementAt(0).Date)</td>
+                                                                        <td>@Html.DisplayNameFor(modelItem => item.CategoryDailyPrices.ElementAt(0).SystemPrice)</td>
+                                                                        <td>Booking Charges</td>
+                                                                        <td>@Html.DisplayNameFor(modelItem => item.CategoryDailyPrices.ElementAt(0).TotalRooms)</td>
+                                                                        <td>@Html.DisplayNameFor(modelItem => item.CategoryDailyPrices.ElementAt(0).TotalAmountInclusiveOfTax)</td>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @Html.HiddenFor(model => model.categoryDetails[i].CategoryId)
+                                                                    @Html.HiddenFor(model => model.categoryDetails[i].TotalNoOfRoomsPerCategory)
+
+                                                                    @for (int j = 0; j < item.CategoryDailyPrices.Count(); j++)
+                                                                    {
+                                                                        var val = item.CategoryDailyPrices[j];
+                                                                        <tr>
+                                                                            <td class="col-sm-1">@Model.categoryDetails[i].CategoryDailyPrices[j].Date.ToString("dd-MMM-yyyy")</td>
+                                                                            @Html.HiddenFor(model => model.categoryDetails[i].CategoryDailyPrices[j].Date)
+                                                                            <td class="col-sm-1">@Html.EditorFor(model => model.categoryDetails[i].CategoryDailyPrices[j].SystemPrice, new { @htmlAttributes = new { @class = "borderNone form-control", @readonly = "readonly" } })</td>
+                                                                            <td class="col-sm-1">@Html.EditorFor(model => model.categoryDetails[i].CategoryDailyPrices[j].TaxAmount, new { @htmlAttributes = new { @class = "borderNone form-control", @readonly = "readonly" } })</td>
+                                                                            <td class="col-sm-1">@Html.TextBoxFor(model => model.categoryDetails[i].CategoryDailyPrices[j].TotalRooms, new { @class = "borderNone form-control", @readonly = "readonly" })</td>
+                                                                            <td class="col-sm-1">@Html.EditorFor(model => model.categoryDetails[i].CategoryDailyPrices[j].TotalAmountInclusiveOfTax, new { @htmlAttributes = new { @class = "borderNone form-control", @readonly = "readonly" } })</td>
+                                                                        </tr>
+                                                                    }
+                                                                    <tr>
+                                                                        <td>
+                                                                            <h4>Total</h4>
+                                                                        </td>
+                                                                        <td>
+                                                                            <h4>@Model.categoryDetails[i].CategoryDailyPrices.Sum(p => p.SystemPrice)</h4>
+                                                                        </td>
+                                                                        <td>
+                                                                            <h4>@Model.categoryDetails[i].CategoryDailyPrices.Sum(t => t.TaxAmount)</h4>
+                                                                        </td>
+                                                                        <td>
+                                                                            <h4>@Model.categoryDetails[i].TotalNoOfRoomsPerCategory</h4>
+                                                                        </td>
+                                                                        <td>
+                                                                            <h4>@item.TotalPriceInclusiveOfTax</h4>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        }
+                                                    </div>
+                                                }
+                                                <div class="col-sm-12 all fadeIn">
+                                                    <table class="table table-responsive ui-state-highlight">
+                                                        <thead>
+                                                            <tr>
+                                                                <td>@Html.DisplayName("Category")</td>
+                                                                <td>@Html.DisplayName("Nights")</td>
+                                                                <td>@Html.DisplayName("Rooms")</td>
+                                                                <td>@Html.DisplayName("Total Price")</td>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var cat in Model.categoryDetails)
+                                                            {
+                                                                <tr>
+                                                                    <td>
+                                                                        <h4>@cat.CategoryDailyPrices[0].CategoryName</h4>
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" readonly="readonly" class="form-control" value="@days" />
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" readonly="readonly" class="form-control" value="@cat.TotalNoOfRoomsPerCategory" />
+
+                                                                    </td>
+                                                                    <td>
+                                                                        <input type="text" readonly="readonly" class="form-control" value="@cat.TotalPriceInclusiveOfTax" />
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                            <tr>
+                                                                <td>
+                                                                    <h4>Total</h4>
+                                                                </td>
+                                                                <td>
+                                                                    <h4>@days </h4>
+                                                                </td>
+                                                                <td>
+                                                                    <h4>@Model.categoryDetails.Sum(t => t.TotalNoOfRoomsPerCategory)</h4>
+
+                                                                </td>
+                                                                <td>
+                                                                    <h4>@Model.categoryDetails.Sum(p => p.TotalPriceInclusiveOfTax)</h4>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+
+                                }
+                            }
+
+                            <section >
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="col-sm-12 col-md-12 mt50">
+                                    <h2 class="lined-heading"><span>Guest Details</span></h2>
+                                    @*<div class="price">
+                                            <h4>@Model.CategoryName</h4>
+                                            INR @ViewBag.TotalPrice,-<span> a night</span>
+                                        </div>*@
+                                    <div id="message"></div>
+                                    <!-- Error message display -->
+                                    <div class="form-group col-md-3">
+                                        <label for="MemberShipCode">MemberShip Code</label>
+                                        @*@Html.EditorFor(m => m.MemberShipCode, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Membership Code"}})*@
+                                        @Html.TextBoxFor(m => m.MemberShipCode, new { @data_val = "false", @required = "required", @class = "form-control", @placeholder = "eg: 027-UTA01-L0*****" })
+                                        <a href="http://yhaindia.org/individual-membership-application.php" style="float:right;text-decoration:underline;" target="blank" class="grnHover"> Become a member</a>
+                                        @Html.ValidationMessageFor(model => model.MemberShipCode, "", new { @class = "text-danger membershiperror" })
+                                        <input type="Text" name="MemberShipCode" id="MemberShipCode">
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="TitleId" >Title</label>
+                                        @Html.DropDownListFor(m => m.Individual.TitleId, Model.Individual.Titles, "Select Title", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Individual.TitleId, "", new { @class = "text-danger" })
+                                    </div>
+                                    @*<div class="form-group col-md-3">
+                                        <label for="Initials" >Initials</label>
+                                        @Html.EditorFor(m => m.Individual.Initials, new { @htmlAttributes = new { @class = "form-control", @placeholder = "Enter Initials" } })                                       
+                                    </div>*@
+                                    <div class="form-group col-md-3">
+                                        <label for="GenderId" >Gender</label>
+                                        @Html.DropDownListFor(m => m.Individual.GenderId, Model.Individual.Genders, "Select Gender", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Individual.GenderId, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="MaritalStatusId" >Marital Status</label>
+                                        @Html.DropDownListFor(m => m.Individual.MaritalStatusId, Model.Individual.MaritalStatuses, "Select Gender", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Individual.MaritalStatusId, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="FirstName" >First Name</label>
+                                        @Html.EditorFor(m => m.Individual.FirstName, new { @htmlAttributes = new { @class = "form-control", @placeholder = "Enter First Name" } })
+                                        @Html.ValidationMessageFor(model => model.Individual.FirstName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="LastName" >Last Name</label>
+                                        @Html.EditorFor(m => m.Individual.LastName, new { @htmlAttributes = new { @class = "form-control", @placeholder = "Enter Last Name" } })
+                                        @Html.ValidationMessageFor(model => model.Individual.LastName, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        @Html.LabelFor(m=>m.Individual.DateOfBirth)
+                                        @*<label for="DateOfBirth">Date of Birth</label>*@
+                                        <div class="popover-icon" data-container="body" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="Check-In is from 11:00"> <i class="fa fa-info-circle fa-lg"> </i> </div>
+                                        <i class="fa fa-calendar infield"></i>
+                                        @*@Html.EditorFor(m => m.Individual.DateOfBirth, new { @htmlAttributes = new { @class = "form-control", @placeholder = "Enter Date of Birth" } })*@
+                                        <input name="Individual.DateOfBirth" type="text" id="Individual_DateOfBirth" class="form-control" placeholder="Date of birth" />
+                                        @*@Html.ValidationMessageFor(model => model.Individual.DateOfBirth, "", new { @class = "text-danger" })*@
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="Contact" >Contact Number</label>
+                                        @Html.EditorFor(m => m.Individual.Contact, new { @htmlAttributes = new { @class = "form-control", @placeholder = "Enter Contact Number" } })
+                                        @Html.ValidationMessageFor(model => model.Individual.Contact, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="AltContact" >Alternate Contact Number</label>
+                                        @Html.EditorFor(m => m.Individual.AltContact, new { @htmlAttributes = new { @class = "form-control", @placeholder = "Enter Alternate Contact" } })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="EmailAddress" >Email</label>
+                                        @Html.EditorFor(m => m.Individual.EmailAddress, new { @htmlAttributes = new { @class = "form-control", @placeholder = "Enter Email Address" } })
+                                        @Html.ValidationMessageFor(model => model.Individual.EmailAddress, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="AddressLineOne">Address 1</label>
+                                        @Html.EditorFor(m => m.Individual.PersonAddress.AddressLineOne, new { @htmlAttributes = new { @class = "form-control", @placeholder = "Enter Address 1" } })
+                                        <input type="text" id="AddressOneName" style="display:none" class="form-control" />
+                                        @Html.ValidationMessageFor(model => model.Individual.PersonAddress.AddressLineOne, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="AddressLineTwo" >Address 2</label>
+                                        <input type="text" id="AddressTwoName" style="display:none" class="form-control" />
+                                        @Html.EditorFor(m => m.Individual.PersonAddress.AddressLineTwo, new { @htmlAttributes = new { @class = "form-control", @placeholder = "Enter Address 2" } })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="AddressLineThree" >Street</label>
+                                        <input type="text" id="AddressThreeName" style="display:none" class="form-control" />
+                                        @Html.EditorFor(m => m.Individual.PersonAddress.AddressLineThree, new { @htmlAttributes = new { @class = "form-control", @placeholder = "Enter Street" } })
+                                    </div>
+                                    @*<div class="form-group col-md-3">
+                                        <label for="AddressLineFour">Landmark</label>
+                                        @Html.EditorFor(m => m.Individual.PersonAddress.AddressLineFour, new { @htmlAttributes = new { @class = "form-control", @placeholder = "Enter Landmark" } })
+                                    </div>*@
+                                    <div class="form-group col-md-3">
+                                        <label for="PostalCode">Postal Code</label>
+                                        @Html.EditorFor(m => m.Individual.PersonAddress.PostalCode, new { @htmlAttributes = new { @class = "form-control", @placeholder = "Enter First Name" } })
+                                        @Html.ValidationMessageFor(model => model.Individual.PersonAddress.PostalCode, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="CountryID" >Country</label>
+                                        @Html.DropDownListFor(m => m.Individual.PersonAddress.CountryID, Model.Individual.PersonAddress.Countries, "Select Country", htmlAttributes: new { @class = "form-control countries" })
+                                        @Html.ValidationMessageFor(model => model.Individual.PersonAddress.CountryID, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="StateID" >State</label>
+                                        @Html.DropDownListFor(m => m.Individual.PersonAddress.StateID, Model.Individual.PersonAddress.States, "Select State", htmlAttributes: new { @class = "form-control states" })
+                                        <input type="text" id="StateName" style="display:none" class="form-control" />
+                                        @Html.ValidationMessageFor(model => model.Individual.PersonAddress.StateID, "", new { @class = "text-danger" })
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="CityID" >City</label>
+                                        @Html.DropDownListFor(m => m.Individual.PersonAddress.CityID, Model.Individual.PersonAddress.Cities, "Select City", htmlAttributes: new { @class = "form-control statecities" })
+                                        <input type="text" id="CityName" style="display:none" class="form-control" />
+                                        @Html.ValidationMessageFor(model => model.Individual.PersonAddress.CityID, "", new { @class = "text-danger" })
+                                    </div>
+                                    
+                                    <div class="form-group col-md-12">
+                                        <input type="checkbox" class="checkbox checkbox-inline" id="confirm" /> @Html.Label("I agree to terms and conditions")
+                                        <br />
+                                        <button type="submit" class="btn btn-primary btn-block" disabled="true" id="submit" >Make Payment and Book</button>
+                                    </div>
+                                </div>
+
+                                @*</form>*@
+                            </section>
+                        }
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Reservation form -->
+
+        <section id="reservation-form ">
+
+            @*<form class="reservation-vertical clearfix" role="form" method="post" action="php/reservation.php" name="reservationform" id="reservationform">*@
+
+            <div class="col-sm-12 col-md-12 mt50">
+                <h2 class="lined-heading"><span>Reservation & Cancellation policy</span></h2>
+
+                <div id="message">
+                    <ul>
+                        <li>
+                            Attention: If you wish to cancel this reservation you must do this before 48 hours of Arrival Date. Only then 90% of the booking amount will be refunded. (Excluding transaction charges).
+                        </li>
+                        <li>
+                            To avail the accommodation facility, you should be a member of Youth Hostels Association of your respective country affiliated by International Youth Hostel Federation, London UK.
+                        </li>
+                        <li>
+                            Please contact hostel if arriving after 22:00 hrs.
+                        </li>
+                        <li>
+                            Government-issued photo ID is required to check in.
+                        </li>
+                        <li>
+                            Children under the age of 5 can stay free.
+                        </li>
+                        <li>
+                            Membership may or may not be purchased on arrival at hostel. Rates quoted assume that guests are members of Hostelling International or a National Youth Hostel Association of respective country. Non-members are required to purchase full membership from their respective country or will be charged standard tariff of the hostel.
+                        </li>
+                        <li>
+                            Pets are not permitted in the hostel.
+                        </li>
+                        <li>
+                            Youth Hostels areas are non-alcoholic and non-smoking area.
+                        </li>
+                        <li>
+                            A system generated email will be sent to the hostel, please inform the hostel about your booking telephonically.
+                        </li>
+                        <li>
+                            One day extra tariff would be charged on early check-in.
+                        </li>
+                    </ul>                </div>
+                <!-- Error message display -->
+
+            </div>
+
+            @*</form>*@
+        </section>
+    </div>
+</div>
+
+    </div>
+</body>
+
+</html>
+<script>
+    $('#confirm').change(function () {
+        alert("helloooo");
+        var ischecked = $(this).is(':checked');
+        if (!ischecked) {
+            $('#submit').prop('disabled', true);
+        }
+        else {
+            $('#submit').prop('disabled', false);
+        }
+
+    });
+    //$(document).on("submit", "#Confirm", function () {
+    //    $('#submit').prop('disabled', true);
+    //    $(this).text('Please wait...');
+    //    //$(this).form.submit();
+    //    return true;
+    //});
+
+
+    //to validate tempory member and member
+    $(document).on('blur',  '#MemberShipCode', function () {
+        //ISOK.VaildateMemberCode = false;
+        //var input = $(this).closest('div[class^="input-control"]');
+        var MemberCode = $(this).val();
+        if (MemberCode != null && MemberCode != "") {
+            $("#fadebox").show();
+            alert("heloo Fasdebox");
+            $.ajax({
+                url: "http://192.168.10.11:8088/api/api/mobile/members/" + MemberCode,
+                type: 'get',
+                async: false,
+                success: function (response) {
+                    if (response.Status == 200 && response.ServicePayload != null && response.ServicePayload != "") {
+                        //ISOK.VaildateMemberCode = true;
+                        //$("#" + antiref).val("");
+                        $(".membershiperror").text("");
+                        //$(".countries").html("");
+                        //$(".countries").html(response.States);
+                        //$(".states").html("");
+                        //$(".states").html(response.States);
+                        //$(".cities").html("");
+                        //$(".cities").html(response.Cities);
+                        AutoFill(response.ServicePayload);
+                        alert("hellAutofill");
+                    }
+                    else{
+                           // $('#outerDialog').modal('show');
+                           
+                       }
+                       alert(response);
+                 },
+
+                error: function () {
+                    alert("heloo error");
+                    //alert("hekkk error");
+                     $("#outerDialog").find('.modal-body').html("");
+        $("#outerDialog").find('.modal-body').load($(this).attr('href'), function () {
+            $('#outerDialog').modal('show');
+                    //ISOK.VaildateMemberCode = false;
+                    //$(".membershiperror").text("Ooooooooooops Something Went Wrong Try Again!");
+                }
+            });
+        }
+        $("#fadebox").hide();
+        return false;
+    });
+
+    function AutoFill(data) {
+        //console.log(data.result);
+        var dataValue = fetchFromObject(data, 'Person.Initials');
+        if (dataValue != null && dataValue != "undefined") {
+            $("#Individual_TitleId option").each(function () {
+                if ($(this).text() == dataValue) {
+                    $(this).attr('selected', 'selected');
+                }
+            });
+            //$('#Individual_GenderId').val(dataValue);
+        }
+
+        var dataValue = fetchFromObject(data, 'Person.GenderName');
+        if (dataValue != null && dataValue != "undefined") {
+            $("#Individual_GenderId option").each(function () {
+                if ($(this).text() == dataValue) {
+                    $(this).attr('selected', 'selected');
+                }
+            });
+            //$('#Individual_GenderId').val(dataValue);
+        }
+
+        dataValue = fetchFromObject(data, 'Person.MaritalStatusName');
+        if (dataValue != null && dataValue != "undefined") {
+            $("#Individual_MaritalStatusId option").each(function () {
+                if ($(this).text() == dataValue) {
+                    $(this).attr('selected', 'selected');
+                }
+            });
+            //$('#Individual_MaritalStatusId').val(dataValue);
+        }
+
+        dataValue = fetchFromObject(data, 'Person.FirstName');
+        if (dataValue != null && dataValue != "undefined") {
+            $('#Individual_FirstName').val(dataValue);
+        }
+
+        dataValue = fetchFromObject(data, 'Person.LastName');
+        if (dataValue != null && dataValue != "undefined") {
+            $('#Individual_LastName').val(dataValue);
+        }
+
+        dataValue = fetchFromObject(data, 'Person.DateOfBirth');
+        if (dataValue != null && dataValue != "undefined") {
+            dataValue = parseInt(dataValue.replace(/[^0-9]/gi, ''));
+            var date = new Date(dataValue);
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            dataValue = date.getDate() + "/" + months[date.getMonth()] + "/" + date.getFullYear();
+            $('#Individual_DateOfBirth').val(dataValue);
+        }
+
+
+        dataValue = fetchFromObject(data, 'Person.Contact');
+        if (dataValue != null && dataValue != "undefined") {
+            $('#Individual_Contact').val(dataValue);
+        }
+
+        dataValue = fetchFromObject(data, 'Person.AltContact');
+        if (dataValue != null && dataValue != "undefined") {
+            $('#Individual_AltContact').val(dataValue);
+        }
+
+        dataValue = fetchFromObject(data, 'Person.EmailAddress');
+        if (dataValue != null && dataValue != "undefined") {
+            $('#Individual_EmailAddress').val(dataValue);
+        }
+
+        dataValue = fetchFromObject(data, 'Person.PersonAddress.AddressLineOne');
+        if (dataValue != null && dataValue != "undefined") {
+            $('#AddressOneName').val(dataValue);
+            $('#AddressOneName').show();
+            $('#Individual_PersonAddress_AddressLineOne').hide();
+            //$('#Individual_PersonAddress_AddressLineOne').val(dataValue);
+        }
+
+
+        dataValue = fetchFromObject(data, 'Person.PersonAddress.AddressLineTwo');
+        if (dataValue != null && dataValue != "undefined") {
+            $('#AddressTwoName').val(dataValue);
+            $('#AddressTwoName').show();
+            $('#Individual_PersonAddress_AddressLineTwo').hide();
+            //$('#Individual_PersonAddress_AddressLineTwo').val(dataValue);
+        }
+
+        dataValue = fetchFromObject(data, 'Person.PersonAddress.AddressLineThree');
+        if (dataValue != null && dataValue != "undefined") {
+            $('#AddressThreeName').val(dataValue);
+            $('#AddressThreeName').show();
+            $('#Individual_PersonAddress_AddressLineThree').hide();
+            //$('#Individual_PersonAddress_AddressLineThree').val(dataValue);
+        }
+
+        dataValue = fetchFromObject(data, 'Person.PersonAddress.PostalCode');
+        if (dataValue != null && dataValue != "undefined") {
+            $('#Individual_PersonAddress_PostalCode').val(dataValue);
+        }
+
+        dataValue = fetchFromObject(data, 'CountryName');
+        if (dataValue != null && dataValue != "undefined") {
+            $("#Individual_PersonAddress_CountryID option").each(function () {
+                if ($(this).text() == dataValue) {
+                    $(this).attr('selected', 'selected');
+                }
+            });
+            //$('#Individual_PersonAddress_CountryID').val(dataValue);
+        }
+
+        dataValue = fetchFromObject(data, 'StateName');
+        if (dataValue != null && dataValue != "undefined") {
+           
+            $('#StateName').val(dataValue);
+            $('#StateName').show();
+            $('#Individual_PersonAddress_StateID').hide();
+            //$("#Individual_PersonAddress_StateID option").each(function () {
+            //    if ($(this).text() == dataValue) {
+            //        $(this).attr('selected', 'selected');
+            //    }
+            //});
+            //$('#Individual_PersonAddress_StateID').val(dataValue);
+        }
+
+        dataValue = fetchFromObject(data, 'CityName');
+        if (dataValue != null && dataValue != "undefined") {
+            $('#CityName').val(dataValue);
+            $('#CityName').show();
+            $('#Individual_PersonAddress_CityID').hide();
+            //$('#Individual_PersonAddress_CityID').val(dataValue);
+        }
+else
+{
+                $('#CityName').show();
+            $('#Individual_PersonAddress_CityID').hide();
+}
+    }
+
+    //get dynamicaly json object value
+    function fetchFromObject(obj, prop) {
+
+        if (typeof obj === 'undefined') {
+            return null;
+        }
+        var _index = prop.indexOf('.')
+        if (_index > -1) {
+            return fetchFromObject(obj[prop.substring(0, _index)], prop.substr(_index + 1));
+        }
+        return obj[prop];
+    }
+</script>
+<script type="text/javascript">
+    function HidePopUp(){
+         $('#outerDialog').modal('hide');
+    }
+</script>
+<!--Comman Dialog BOx Popup  -->
+<div class="modal fade" tabindex="-1" role="dialog" id="outerDialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+      <div> <p style="text-align: center;">Invalid details found.</p> </div>
+      <div><p style="text-align: center;">Do you want to become member</p></div>
+      <div><div><a href="http://yhaindia.org/individual-membership-application.php">YES</a></div> 
+           <div><a href="#" onclick="HidePopUp();"> NO</a></div>
+      </div>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+

@@ -1,0 +1,30 @@
+RewriteEngine On
+RewriteBase /
+
+
+#ErrorDocument 400 /400.shtml
+#ErrorDocument 500 /500.shtml
+
+Options -Indexes
+#RewriteCond %{HTTP_HOST} !^www\.yhaiindia\.org
+#RewriteCond %{HTTP_HOST} ([^.]+)\.yhaiindia\.org [NC]
+#RewriteRule ^(.*)$ http://www.yhaiindia.org/%1 [L,R]
+
+ 
+# Home 
+RewriteRule ^index.html$ index.php [QSA,L]
+ 
+# Webpage
+#RewriteRule ^page/(.*)/(.*)-(.*).html$ webpage.php?page_id=$2&node=$3 [QSA,L]
+#RewriteRule ^(.*)/(.*)/(.*).html$ webpage.php?page_name=$3 [QSA,L]
+#RewriteRule ^(.*)/(.*).html$ webpage.php?page_name=$2 [QSA,L]
+
+RewriteRule ^(.*).html$ webpage.php?page_name=$1 [QSA,L]
+ 
+# Membership
+RewriteRule ^membership/(.*)/(.*).html$ individual-membership-application.php?node=$2 [QSA,L]
+
+#AuthType Basic
+#AuthName "Password Protected Area"
+#AuthUserFile E:\wamp\www\yhai_new\.htpasswd
+#Require valid-user

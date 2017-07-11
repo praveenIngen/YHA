@@ -1,0 +1,5 @@
+ <div class="col-lg-4 col-md-4 form-group">
+                                    <input type="file" name="photograph" id="photograph"  class="dialogBox filestyle" data-buttonText="Photograph" data-classInput="input-small" accept="image/*" data-classIcon="fa fa-picture-o"/>
+                                    <input type="hidden" name="old_photograph" id="old_photograph" value="<?php echo $data['photograph']; ?>" />
+                                    <small id="photographHelp" class="form-text text-muted" style="float:left">Please upload a passport size photograph. photo size should be upto 512 KB.</small>
+                                </div>
